@@ -1,4 +1,4 @@
-# Platform Microservices || Security-HomeLab
+# Platform Microservices || CyberSecurity-HomeLab
 
 A backend authentication microservice built with ASP.NET Core (.NET 8), implementing secure user registration and login using JWT, BCrypt password hashing, and SQLite via Entity Framework Core.
 
@@ -145,5 +145,4 @@ This project covers:
 
 ## Author
 
-Built as a personal backend project to strengthen understanding of authentication flows, stateless security, and microservice design.
->>>>>>> 1caba7d (feat: auth microservice with JWT and SQLite (db excluded for security))
+Built as a personal backend project to strengthen understanding of Cybersecurity knowledge especially authentication flows, stateless security, and microservice design.
