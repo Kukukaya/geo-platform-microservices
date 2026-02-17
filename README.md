@@ -1,26 +1,152 @@
-# "Geo Platform Microservices"
+Geo Platform Microservices
+Authentication Microservice (ASP.NET Core + JWT + SQLite)
 
-The backend-focused and cloud-native web platform inspired by GeoGuessr.
-Built to demonstrate Backend engineering, microservices, DevOps,
-Infrastructure, and cybersecurity skills.
+Project Overview
+----------------
+This project is a backend-focused authentication microservice built using ASP.NET Core (.NET 8). 
+It implements secure user registration and login using JWT authentication, BCrypt password hashing, 
+and SQLite with Entity Framework Core.
 
-## Tech Stack
-- Backend: C#, Java, Scala, Go, Python
-- Frontend: (TBA)
-- Database: MS SQL, Cassandra
-- Infra: Docker, Kubernetes
-- CI/CD: TeamCity
-- Monitoring: Prometheus, Grafana
-- Security: OAuth2, JWT, MFA
+The goal of this project is to demonstrate understanding of authentication flow, 
+stateless security, and database integration within a microservice architecture.
 
-## Architecture
-Microservice-based architecture with API Gateway and centralized Auth service.
+------------------------------------------------------------
 
-## Services (Planned)
-- Auth Service (OAuth2 / OpenID Connect)
-- User Service
-- Game Logic Service
-- Geo Service
+Project Structure
+-----------------
 
-## Status
-🚧 Initial setup phase
+geo-platform-microservices/
+│
+├── services/
+│   └── auth-service/        ASP.NET Core Authentication Service
+│
+├── frontend/                Simple HTML + JavaScript client
+│
+└── README.md
+
+------------------------------------------------------------
+
+Authentication Flow
+-------------------
+
+1. Registration
+   - User submits username and password.
+   - Password is hashed using BCrypt.
+   - User is stored in SQLite database.
+
+2. Login
+   - Credentials are validated against stored data.
+   - If valid, a JWT token is generated.
+   - Token is returned to the client.
+
+3. Protected Endpoint
+   - Client sends:
+       Authorization: Bearer <JWT_TOKEN>
+   - Server validates:
+       - Token signature
+       - Expiration time
+       - Claims
+   - If valid, protected data is returned.
+
+------------------------------------------------------------
+
+Technology Stack
+----------------
+
+- ASP.NET Core 8
+- Entity Framework Core
+- SQLite
+- JWT (JSON Web Token)
+- BCrypt.Net
+- Swagger
+- HTML + JavaScript (Frontend testing)
+
+------------------------------------------------------------
+
+Database Design
+---------------
+
+Database: SQLite  
+ORM: Entity Framework Core  
+
+Users Table:
+- Id (Primary Key)
+- Username
+- PasswordHash
+- Role
+
+The database file (auth.db) is excluded from version control.
+
+------------------------------------------------------------
+
+How to Run
+----------
+
+1. Run Backend
+
+   cd services/auth-service
+   dotnet restore
+   dotnet run
+
+   API will run at:
+   http://localhost:5080
+
+2. Test Using cURL
+
+   Register:
+   curl -X POST http://localhost:5080/api/auth/register \
+   -H "Content-Type: application/json" \
+   -d '{"username":"testuser","passwordHash":"123456"}'
+
+   Login:
+   curl -X POST http://localhost:5080/api/auth/login \
+   -H "Content-Type: application/json" \
+   -d '{"username":"testuser","passwordHash":"123456"}'
+
+   Access Protected Endpoint:
+   curl http://localhost:5080/api/auth/me \
+   -H "Authorization: Bearer YOUR_TOKEN"
+
+------------------------------------------------------------
+
+Learning Objectives
+-------------------
+
+This project demonstrates understanding of:
+
+- Stateless authentication using JWT
+- Secure password hashing with BCrypt
+- RESTful API development
+- Dependency Injection in ASP.NET Core
+- Database integration using EF Core
+- CORS configuration
+- Basic microservice architecture principles
+
+------------------------------------------------------------
+
+Current Progress
+----------------
+
+- JWT authentication implemented
+- SQLite database integrated
+- EF Core auto-creation of database schema
+- Protected endpoint working
+- Frontend connected to backend
+
+Future Improvements
+-------------------
+
+- Role-based authorization
+- Refresh token implementation
+- Docker containerization
+- PostgreSQL integration
+- API Gateway integration
+- CI/CD pipeline
+
+------------------------------------------------------------
+
+Author
+------
+
+Built as a backend authentication microservice to strengthen understanding 
+of security, authentication flow, and service architecture.
